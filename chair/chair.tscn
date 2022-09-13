@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://chair/chair_proto.png" type="Texture" id=1]
+[ext_resource path="res://chair/shader.tres" type="Material" id=2]
+
+[node name="Chair" type="Node2D"]
+position = Vector2( 1006, 523 )
+rotation = 0.733038
+
+[node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 2 )
+scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 1 )
+region_rect = Rect2( 9.338, 0, 1.518, 0 )
