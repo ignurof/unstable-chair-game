@@ -13,3 +13,4 @@ data_*/
 # Project-specific ignores
 *.png
 *.png.import
+*.ttf
