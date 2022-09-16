@@ -31,6 +31,13 @@ func _input(event) -> void:
         # Validate input key is same as current_letter in the active_word (dont let player mistype)
         if scancode_string != current_letter:
             print("Wrong letter!")
+            # If player is not on the first letter, reset
+            if letter_index > 0:
+                for child in typing_container.get_children():
+                    child.queue_free()
+
+                letter_index = 0
+                current_letter = active_word[letter_index]
             return
             
         var new_letter: Label = type_letter.instance()
