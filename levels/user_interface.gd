@@ -7,6 +7,7 @@ var current_letter
 var letter_index: int = 0
 var score: int = 0
 var _active_word: String = "" setget _set_active_word
+var _old_word: String = ""
 
 onready var word_container = $WordContainer
 onready var typing_container = $TypingContainer
@@ -26,6 +27,10 @@ func _ready() -> void:
     
     
 func _process(delta) -> void:
+    # TODO: Fail condition
+    if stability_timer.get_time_left() <= 0.1:
+        print("fail condition")
+
     stability_timer_label.text = str(stability_timer.get_time_left())
 
 
@@ -93,34 +98,42 @@ func _populate_word_container() -> void:
 
 func _randomly_select_word() -> String:
     var random_number: int = randi() % 11
+    var new_word: String
     match random_number:
         0:
-            return "ignurof"
+            new_word = "ignurof"
         1:
-            return "hello"
+            new_word = "hello"
         2:
-            return "world"
+            new_word = "world"
         3:
-            return "boss"
+            new_word = "boss"
         4:
-            return "tree"
+            new_word = "tree"
         5:
-            return "food"
+            new_word = "food"
         6:
-            return "banana"
+            new_word = "banana"
         7:
-            return "alchemy"
+            new_word = "alchemy"
         8:
-            return "worldstar"
+            new_word = "worldstar"
         9:
-            return "programmer"
+            new_word = "programmer"
         10:
-            return "developer"
+            new_word = "developer"
         _:
             push_error("_randomly_select_word: Unhandled random_number case")
             return ""
+            
+    # HACK: Never use the same word twice recursion
+    if _old_word == new_word:
+        return _randomly_select_word()
+    else:
+        return new_word
 
 
 func _set_active_word(value: String) -> void:
     _active_word = value
+    _old_word = _active_word
     _reset_current_letter()
