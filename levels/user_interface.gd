@@ -3,10 +3,10 @@ extends Control
 var word_letter: PackedScene = load("res://fonts/word_letter.tscn")
 var type_letter: PackedScene = load("res://fonts/type_letter.tscn")
 
-var active_word: String = ""
 var current_letter
 var letter_index: int = 0
 var score: int = 0
+var _active_word: String = "" setget _set_active_word
 
 onready var word_container = $WordContainer
 onready var typing_container = $TypingContainer
@@ -16,8 +16,7 @@ onready var score_label = $Score
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
     randomize()
-    active_word = _randomly_select_word()
-    current_letter = active_word[letter_index]
+    _set_active_word(_randomly_select_word())
     
     _populate_word_container()
 
@@ -36,10 +35,9 @@ func _input(event) -> void:
         var new_letter: Label = type_letter.instance()
         new_letter.text = scancode_string
         typing_container.add_child(new_letter)
-        printt(letter_index, current_letter, active_word.length())
         letter_index += 1
-        if letter_index < active_word.length():
-            current_letter = active_word[letter_index]
+        if letter_index < _active_word.length():
+            current_letter = _active_word[letter_index]
         else:
             # Gain score and update word
             _add_score()
@@ -53,20 +51,17 @@ func _reset_typing() -> void:
     for child in typing_container.get_children():
         child.queue_free()
 
-    letter_index = 0
-    # Sometimes the word is empty, so I solve the issue with recursion.
-    # Ideally I would just solve the issue but due to jam time constraints-
-    # -I will leave it for later.
-    # HACK: This is ugly
-    if active_word != "":
-        current_letter = active_word[letter_index]
-    else:
-        _reset_typing()
+    _reset_current_letter()
     
+
+func _reset_current_letter() -> void:
+    letter_index = 0
+    current_letter = _active_word[letter_index]
+
 
 # TODO: Make this more better
 func _set_new_active_word() -> void:
-    active_word = _randomly_select_word()
+    _set_active_word(_randomly_select_word())
     _populate_word_container()
         
     
@@ -82,7 +77,7 @@ func _populate_word_container() -> void:
             child.queue_free()
     
     # Add new word
-    for letter in active_word:
+    for letter in _active_word:
         var new_letter: Label = word_letter.instance()
         new_letter.text = letter
         word_container.add_child(new_letter)
@@ -91,6 +86,8 @@ func _populate_word_container() -> void:
 func _randomly_select_word() -> String:
     var random_number: int = randi() % 11
     match random_number:
+        0:
+            return "ignurof"
         1:
             return "hello"
         2:
@@ -114,3 +111,8 @@ func _randomly_select_word() -> String:
         _:
             push_error("_randomly_select_word: Unhandled random_number case")
             return ""
+
+
+func _set_active_word(value: String) -> void:
+    _active_word = value
+    _reset_current_letter()
