@@ -6,9 +6,11 @@ var type_letter: PackedScene = load("res://fonts/type_letter.tscn")
 var active_word: String = ""
 var current_letter
 var letter_index: int = 0
+var score: int = 0
 
 onready var word_container = $WordContainer
 onready var typing_container = $TypingContainer
+onready var score_label = $Score
 
 
 # Called when the node enters the scene tree for the first time.
@@ -35,11 +37,16 @@ func _input(event) -> void:
         new_letter.text = scancode_string
         typing_container.add_child(new_letter)
         printt(letter_index, current_letter, active_word.length())
-        letter_index = letter_index + 1
+        letter_index += 1
         if letter_index < active_word.length():
             current_letter = active_word[letter_index]
         else:
-            current_letter = null    
+            # Gain score and update word
+            current_letter = null
+            score += 1
+            score_label.text = str(score)
+            # TODO: Set chair balance
+            
             
 
 func _randomly_select_word() -> String:
