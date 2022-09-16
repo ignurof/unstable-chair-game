@@ -11,6 +11,8 @@ var _active_word: String = "" setget _set_active_word
 onready var word_container = $WordContainer
 onready var typing_container = $TypingContainer
 onready var score_label = $Score
+onready var stability_timer = $StabilityTimer
+onready var stability_timer_label = $StabilityTimer/Label
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,6 +21,12 @@ func _ready() -> void:
     _set_active_word(_randomly_select_word())
     
     _populate_word_container()
+    
+    stability_timer.start(30.0)
+    
+    
+func _process(delta) -> void:
+    stability_timer_label.text = str(stability_timer.get_time_left())
 
 
 func _input(event) -> void:

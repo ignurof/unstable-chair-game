@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://levels/light_mask.png" type="Texture" id=1]
 [ext_resource path="res://chair/chair.tscn" type="PackedScene" id=2]
 [ext_resource path="res://levels/bg_proto.png" type="Texture" id=3]
 [ext_resource path="res://fonts/roboto_regular.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://levels/user_interface.gd" type="Script" id=5]
+[ext_resource path="res://fonts/timer.tres" type="DynamicFont" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -57,5 +58,16 @@ anchor_right = 1.0
 margin_bottom = 38.0
 custom_fonts/font = SubResource( 1 )
 text = "0"
+align = 1
+valign = 1
+
+[node name="StabilityTimer" type="Timer" parent="UI"]
+
+[node name="Label" type="Label" parent="UI/StabilityTimer"]
+anchor_right = 1.0
+margin_top = 126.0
+margin_bottom = 152.0
+custom_fonts/font = ExtResource( 6 )
+text = "30.0"
 align = 1
 valign = 1
