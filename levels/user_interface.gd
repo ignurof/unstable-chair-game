@@ -19,10 +19,7 @@ func _ready() -> void:
     active_word = _randomly_select_word()
     current_letter = active_word[letter_index]
     
-    for letter in active_word:
-        var new_letter: Label = word_letter.instance()
-        new_letter.text = letter
-        word_container.add_child(new_letter)
+    _populate_word_container()
 
 
 func _input(event) -> void:
@@ -33,11 +30,7 @@ func _input(event) -> void:
             print("Wrong letter!")
             # If player is not on the first letter, reset
             if letter_index > 0:
-                for child in typing_container.get_children():
-                    child.queue_free()
-
-                letter_index = 0
-                current_letter = active_word[letter_index]
+                _reset_typing()
             return
             
         var new_letter: Label = type_letter.instance()
@@ -49,11 +42,50 @@ func _input(event) -> void:
             current_letter = active_word[letter_index]
         else:
             # Gain score and update word
-            current_letter = null
-            score += 1
-            score_label.text = str(score)
+            _add_score()
+            _set_new_active_word()
+            _reset_typing()
             # TODO: Set chair balance
-            
+           
+        
+func _reset_typing() -> void:
+    current_letter = null
+    for child in typing_container.get_children():
+        child.queue_free()
+
+    letter_index = 0
+    # Sometimes the word is empty, so I solve the issue with recursion.
+    # Ideally I would just solve the issue but due to jam time constraints-
+    # -I will leave it for later.
+    # HACK: This is ugly
+    if active_word != "":
+        current_letter = active_word[letter_index]
+    else:
+        _reset_typing()
+    
+
+# TODO: Make this more better
+func _set_new_active_word() -> void:
+    active_word = _randomly_select_word()
+    _populate_word_container()
+        
+    
+func _add_score() -> void:
+    score += 1
+    score_label.text = str(score)
+    
+    
+func _populate_word_container() -> void:
+    # Delete old word
+    if word_container.get_child_count() > 0:
+        for child in word_container.get_children():
+            child.queue_free()
+    
+    # Add new word
+    for letter in active_word:
+        var new_letter: Label = word_letter.instance()
+        new_letter.text = letter
+        word_container.add_child(new_letter)
             
 
 func _randomly_select_word() -> String:
