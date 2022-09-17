@@ -1,29 +1,20 @@
 extends Control
 
+signal set_new_word
+
 var word_letter: PackedScene = load("res://fonts/word_letter.tscn")
 var type_letter: PackedScene = load("res://fonts/type_letter.tscn")
 
 var current_letter
 var letter_index: int = 0
 var score: int = 0
-var _active_word: String = "" setget _set_active_word
-var _old_word: String = ""
+var _active_word: String = "" setget set_active_word
 
 onready var word_container = $WordContainer
 onready var typing_container = $TypingContainer
 onready var score_label = $Score
 onready var stability_timer = $StabilityTimer
 onready var stability_timer_label = $StabilityTimer/Label
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-    randomize()
-    _set_active_word(_randomly_select_word())
-    
-    _populate_word_container()
-    
-    stability_timer.start(30.0)
     
     
 func _process(delta) -> void:
@@ -39,7 +30,6 @@ func _input(event) -> void:
         var scancode_string = OS.get_scancode_string(event.scancode).to_lower()
         # Validate input key is same as current_letter in the active_word (dont let player mistype)
         if scancode_string != current_letter:
-            print("Wrong letter!")
             # If player is not on the first letter, reset
             if letter_index > 0:
                 _reset_typing()
@@ -54,7 +44,7 @@ func _input(event) -> void:
         else:
             # Gain score and update word
             _add_score()
-            _set_new_active_word()
+            emit_signal("set_new_word")
             _reset_typing()
             # TODO: Set chair balance
            
@@ -70,13 +60,7 @@ func _reset_typing() -> void:
 func _reset_current_letter() -> void:
     letter_index = 0
     current_letter = _active_word[letter_index]
-
-
-# TODO: Make this more better
-func _set_new_active_word() -> void:
-    _set_active_word(_randomly_select_word())
-    _populate_word_container()
-        
+       
     
 func _add_score() -> void:
     score += 1
@@ -96,44 +80,7 @@ func _populate_word_container() -> void:
         word_container.add_child(new_letter)
             
 
-func _randomly_select_word() -> String:
-    var random_number: int = randi() % 11
-    var new_word: String
-    match random_number:
-        0:
-            new_word = "ignurof"
-        1:
-            new_word = "hello"
-        2:
-            new_word = "world"
-        3:
-            new_word = "boss"
-        4:
-            new_word = "tree"
-        5:
-            new_word = "food"
-        6:
-            new_word = "banana"
-        7:
-            new_word = "alchemy"
-        8:
-            new_word = "worldstar"
-        9:
-            new_word = "programmer"
-        10:
-            new_word = "developer"
-        _:
-            push_error("_randomly_select_word: Unhandled random_number case")
-            return ""
-            
-    # HACK: Never use the same word twice recursion
-    if _old_word == new_word:
-        return _randomly_select_word()
-    else:
-        return new_word
-
-
-func _set_active_word(value: String) -> void:
+func set_active_word(value: String) -> void:
     _active_word = value
-    _old_word = _active_word
     _reset_current_letter()
+    _populate_word_container()
