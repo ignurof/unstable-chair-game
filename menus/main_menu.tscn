@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://fonts/menu_button.tres" type="DynamicFont" id=1]
 [ext_resource path="res://fonts/header.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/credits.tres" type="DynamicFont" id=3]
 [ext_resource path="res://menus/main_menu.gd" type="Script" id=4]
+[ext_resource path="res://levels/pillow.png" type="Texture" id=5]
+[ext_resource path="res://levels/cat.png" type="Texture" id=6]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -117,6 +119,21 @@ This is a mock options label that is just for testing purposes.
 This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
 This is a mock options label that is just for testing purposes.
 This is a mock options label that is just for testing purposes."
+
+[node name="Pillow" type="TextureRect" parent="."]
+margin_left = 266.0
+margin_top = 100.0
+margin_right = 2314.0
+margin_bottom = 2148.0
+rect_scale = Vector2( 0.5, 0.5 )
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="Cat" type="TextureRect" parent="Pillow"]
+margin_right = 2048.0
+margin_bottom = 2048.0
+mouse_filter = 2
+texture = ExtResource( 6 )
 
 [connection signal="pressed" from="Buttons/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="Buttons/Options" to="." method="_on_Options_pressed"]

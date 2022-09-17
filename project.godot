@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "LoadWords",
+"language": "GDScript",
+"path": "res://utils/load_words.gd"
+} ]
+_global_script_class_icons={
+"LoadWords": ""
+}
+
 [application]
 
 config/name="Unstable Chair Game"
