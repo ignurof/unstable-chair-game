@@ -18,6 +18,7 @@ font_data = ExtResource( 4 )
 script = ExtResource( 7 )
 
 [node name="StabilityTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Background" type="Sprite" parent="."]
 modulate = Color( 0.580392, 0.580392, 0.580392, 1 )
@@ -78,3 +79,5 @@ position = Vector2( 936, 310.375 )
 scale = Vector2( 0.765625, 0.926758 )
 texture = ExtResource( 1 )
 color = Color( 1, 0.72549, 0.435294, 1 )
+
+[connection signal="timeout" from="StabilityTimer" to="." method="_on_StabilityTimer_timeout"]

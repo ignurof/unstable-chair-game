@@ -1,5 +1,7 @@
 extends Node2D
 
+signal game_over
+
 var word_list: PoolStringArray = []
 var _old_word: String = ""
 
@@ -37,7 +39,7 @@ func _process(delta) -> void:
 
 func _start() -> void:
     _on_set_new_word()
-    stability_timer.start(30.0)
+    stability_timer.start(10.0)
     chair.animate(0)
 
 
@@ -59,3 +61,11 @@ func _on_score_added() -> void:
     
     if chair.get_stage() > 0:
         chair.animate(chair.get_stage() - 1)
+
+
+func _game_over() -> void:
+    emit_signal("game_over")
+
+
+func _on_StabilityTimer_timeout() -> void:
+    _game_over()
