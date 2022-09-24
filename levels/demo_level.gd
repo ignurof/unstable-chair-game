@@ -5,6 +5,7 @@ var _old_word: String = ""
 
 onready var chair: Node2D = $Chair
 onready var ui: Control = $UI
+onready var stability_timer = $StabilityTimer
 
 
 func _ready():
@@ -15,9 +16,13 @@ func _ready():
     _start()
 
 
+func _process(delta) -> void:
+    ui.stability_timer_label.set_text(str(stability_timer.get_time_left()))
+
+
 func _start() -> void:
     _on_set_new_word()
-    ui.stability_timer.start(30.0)
+    stability_timer.start(30.0)
     chair.rotate_chair()
 
 

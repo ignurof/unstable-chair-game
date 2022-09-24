@@ -17,6 +17,8 @@ font_data = ExtResource( 4 )
 [node name="DemoLevel" type="Node2D"]
 script = ExtResource( 7 )
 
+[node name="StabilityTimer" type="Timer" parent="."]
+
 [node name="Background" type="Sprite" parent="."]
 modulate = Color( 0.580392, 0.580392, 0.580392, 1 )
 scale = Vector2( 0.265175, 0.247083 )
@@ -62,9 +64,7 @@ text = "0"
 align = 1
 valign = 1
 
-[node name="StabilityTimer" type="Timer" parent="UI"]
-
-[node name="Label" type="Label" parent="UI/StabilityTimer"]
+[node name="TimerLabel" type="Label" parent="UI"]
 anchor_right = 1.0
 margin_top = 126.0
 margin_bottom = 152.0

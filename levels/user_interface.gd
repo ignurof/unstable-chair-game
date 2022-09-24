@@ -13,16 +13,7 @@ var _active_word: String = "" setget set_active_word
 onready var word_container = $WordContainer
 onready var typing_container = $TypingContainer
 onready var score_label = $Score
-onready var stability_timer = $StabilityTimer
-onready var stability_timer_label = $StabilityTimer/Label
-    
-    
-func _process(delta) -> void:
-    # TODO: Fail condition
-    if stability_timer.get_time_left() <= 0.1:
-        print("fail condition")
-
-    stability_timer_label.text = str(stability_timer.get_time_left())
+onready var stability_timer_label = $TimerLabel
 
 
 func _input(event) -> void:
