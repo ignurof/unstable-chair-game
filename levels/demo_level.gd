@@ -23,7 +23,7 @@ func _process(delta) -> void:
 func _start() -> void:
     _on_set_new_word()
     stability_timer.start(30.0)
-    chair.rotate_chair()
+    chair.animate(0)
 
 
 func _randomly_select_word() -> String:

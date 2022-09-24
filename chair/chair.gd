@@ -3,26 +3,22 @@ extends Node2D
 onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 
-func rotate_chair() -> void:
-    anim_player.play("test")
-
-
 # 0 - 25s+ | 1 - 20s+
 # 2 - 15s+ | 3 - 10s+
 # 4 - 5s+  | 5 - 0s+
 func animate(stage: int) -> void:
     match stage:
         0:
-            pass
+            anim_player.play("stage_one")
         1:
-            pass
+            anim_player.play("stage_one")
         2:
-            pass
+            anim_player.play("stage_two")
         3:
-            pass
+            anim_player.play("stage_three")
         4:
-            pass
+            anim_player.play("stage_four")
         5:
-            pass
+            anim_player.play("stage_five")
         _:
             push_error("chair animate(): unhandled stage value in match")
