@@ -95,7 +95,7 @@ script = ExtResource( 3 )
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 2 )
 position = Vector2( -50, 85 )
-rotation = -1.30577
+rotation = -0.660703
 scale = Vector2( 0.133, 0.133 )
 texture = ExtResource( 1 )
 offset = Vector2( 480, -920 )

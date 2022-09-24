@@ -1,6 +1,7 @@
 extends Control
 
 signal set_new_word
+signal score_added
 
 var word_letter: PackedScene = load("res://fonts/word_letter.tscn")
 var type_letter: PackedScene = load("res://fonts/type_letter.tscn")
@@ -56,6 +57,7 @@ func _reset_current_letter() -> void:
 func _add_score() -> void:
     score += 1
     score_label.text = str(score)
+    emit_signal("score_added")
     
     
 func _populate_word_container() -> void:
