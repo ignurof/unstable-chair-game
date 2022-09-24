@@ -42,15 +42,12 @@ func _start() -> void:
 
 
 func _randomly_select_word() -> String:
-    var new_word = "ignurof"
-    var rand_num = randi() % len(word_list)
-    new_word = word_list[rand_num]
-            
-    # HACK: Never use the same word twice recursion
-    if _old_word == new_word:
-        return _randomly_select_word()
-    else:
+    var new_word = word_list[randi() % len(word_list)]
+    
+    if _old_word != new_word:
         return new_word
+    else:
+        return _randomly_select_word()
 
 
 func _on_set_new_word() -> void:
@@ -59,5 +56,6 @@ func _on_set_new_word() -> void:
     
 func _on_score_added() -> void:
     stability_timer.start(stability_timer.get_time_left() + 5.0)
+    
     if chair.get_stage() > 0:
         chair.animate(chair.get_stage() - 1)
