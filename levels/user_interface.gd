@@ -15,6 +15,10 @@ onready var word_container = $WordContainer
 onready var typing_container = $TypingContainer
 onready var score_label = $Score
 onready var stability_timer_label = $TimerLabel
+onready var typing_audio = $"../TypingAudio"
+onready var failed_typing_audio = $"../FailedTypingAudio"
+onready var success_audio = $"../SuccessAudio"
+onready var failure_audio = $"../FailureAudio"
 
 
 func _input(event) -> void:
@@ -22,11 +26,13 @@ func _input(event) -> void:
         var scancode_string = OS.get_scancode_string(event.scancode).to_lower()
         # Validate input key is same as current_letter in the active_word (dont let player mistype)
         if scancode_string != current_letter:
+            failed_typing_audio.play()
             # If player is not on the first letter, reset
             if letter_index > 0:
                 _reset_typing()
             return
             
+        typing_audio.play()
         var new_letter: Label = type_letter.instance()
         new_letter.text = scancode_string
         typing_container.add_child(new_letter)
@@ -57,6 +63,7 @@ func _reset_current_letter() -> void:
 func _add_score() -> void:
     score += 1
     score_label.text = str(score)
+    success_audio.play()
     emit_signal("score_added")
     
     
