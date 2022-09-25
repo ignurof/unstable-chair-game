@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://fonts/menu_button.tres" type="DynamicFont" id=1]
 [ext_resource path="res://fonts/header.tres" type="DynamicFont" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://menus/main_menu.gd" type="Script" id=4]
 [ext_resource path="res://levels/pillow.png" type="Texture" id=5]
 [ext_resource path="res://levels/cat.png" type="Texture" id=6]
+[ext_resource path="res://audio/kenney_interfacesounds/Audio/confirmation_001.ogg" type="AudioStream" id=7]
+[ext_resource path="res://audio/kenney_interfacesounds/Audio/confirmation_004.ogg" type="AudioStream" id=8]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -38,22 +40,15 @@ margin_bottom = -125.0
 custom_constants/separation = 64
 
 [node name="Play" type="Button" parent="Buttons"]
-margin_right = 279.0
+margin_right = 166.0
 margin_bottom = 82.0
 custom_fonts/font = ExtResource( 1 )
 text = "PLAY"
 
-[node name="Options" type="Button" parent="Buttons"]
-margin_top = 146.0
-margin_right = 279.0
-margin_bottom = 228.0
-custom_fonts/font = ExtResource( 1 )
-text = "OPTIONS"
-
 [node name="Quit" type="Button" parent="Buttons"]
-margin_top = 292.0
-margin_right = 279.0
-margin_bottom = 374.0
+margin_top = 146.0
+margin_right = 166.0
+margin_bottom = 228.0
 custom_fonts/font = ExtResource( 1 )
 text = "QUIT"
 
@@ -82,44 +77,6 @@ text = "Art by my baby momma"
 align = 2
 valign = 1
 
-[node name="OptionsMenu" type="Control" parent="."]
-visible = false
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -816.0
-margin_top = -539.0
-margin_right = -57.0
-margin_bottom = -94.0
-
-[node name="Label" type="Label" parent="OptionsMenu"]
-margin_right = 754.0
-margin_bottom = 405.0
-text = "This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes.
-This is a mock options label that is just for testing purposes."
-
 [node name="Pillow" type="TextureRect" parent="."]
 margin_left = 266.0
 margin_top = 100.0
@@ -135,6 +92,11 @@ margin_bottom = 2048.0
 mouse_filter = 2
 texture = ExtResource( 6 )
 
+[node name="PlayAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="QuitAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
 [connection signal="pressed" from="Buttons/Play" to="." method="_on_Play_pressed"]
-[connection signal="pressed" from="Buttons/Options" to="." method="_on_Options_pressed"]
 [connection signal="pressed" from="Buttons/Quit" to="." method="_on_Quit_pressed"]
