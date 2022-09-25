@@ -64,6 +64,8 @@ func _on_score_added() -> void:
 
 
 func _game_over() -> void:
+    ui.failure_audio.play()
+    yield(ui.failure_audio, "finished")
     emit_signal("game_over")
 
 
