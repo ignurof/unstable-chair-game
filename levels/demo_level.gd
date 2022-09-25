@@ -8,15 +8,17 @@ var _old_word: String = ""
 onready var chair: Node2D = $Chair
 onready var ui: Control = $UI
 onready var stability_timer: Timer = $StabilityTimer
+onready var tutorial: Control = $UI/Tutorial
 
 
 func _ready() -> void:
     randomize()
     ui.connect("set_new_word", self, "_on_set_new_word")
     ui.connect("score_added", self, "_on_score_added")
+    tutorial.get_node("Button").connect("pressed", self, "_start")
     
     word_list = LoadWords.load_to_memory().split("\n")
-    _start()
+#    _start()
 
 
 func _process(delta) -> void:
@@ -38,6 +40,7 @@ func _process(delta) -> void:
 
 
 func _start() -> void:
+    tutorial.hide()
     _on_set_new_word()
     stability_timer.start(10.0)
     chair.animate(0)
@@ -57,7 +60,7 @@ func _on_set_new_word() -> void:
     
     
 func _on_score_added() -> void:
-    stability_timer.start(stability_timer.get_time_left() + 5.0)
+    stability_timer.start(stability_timer.get_time_left() + 1.4)
     
     if chair.get_stage() > 0:
         chair.animate(chair.get_stage() - 1)

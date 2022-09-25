@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://levels/light_mask.png" type="Texture" id=1]
 [ext_resource path="res://chair/chair.tscn" type="PackedScene" id=2]
@@ -11,8 +11,15 @@
 [ext_resource path="res://audio/kenney_interfacesounds/Audio/back_001.ogg" type="AudioStream" id=9]
 [ext_resource path="res://audio/kenney_interfacesounds/Audio/toggle_002.ogg" type="AudioStream" id=10]
 [ext_resource path="res://audio/kenney_interfacesounds/Audio/scratch_001.ogg" type="AudioStream" id=11]
+[ext_resource path="res://fonts/menu_button.tres" type="DynamicFont" id=12]
 
 [sub_resource type="DynamicFont" id=1]
+size = 32
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=2]
 size = 32
 use_mipmaps = true
 use_filter = true
@@ -77,6 +84,41 @@ custom_fonts/font = ExtResource( 6 )
 text = "30.0"
 align = 1
 valign = 1
+
+[node name="Tutorial" type="Control" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="UI/Tutorial"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.952941 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Tutorial"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -305.0
+margin_top = -238.0
+margin_right = 305.0
+margin_bottom = 22.0
+custom_fonts/normal_font = SubResource( 2 )
+text = "Oh no!
+Your favorite chair is very unstable and is about to tip over and fall to the ground. Stabilize it by typing the words successfully as they show up in your view.
+"
+
+[node name="Button" type="Button" parent="UI/Tutorial"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -134.5
+margin_top = 57.0
+margin_right = 134.5
+margin_bottom = 181.0
+custom_fonts/font = ExtResource( 12 )
+text = "OKAY"
 
 [node name="Light2D2" type="Light2D" parent="."]
 position = Vector2( 936, 310.375 )
