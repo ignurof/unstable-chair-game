@@ -1,7 +1,8 @@
 extends Node
 # Main entrypoint to the program (game)
 
-var main_menu: Control 
+var main_menu: Control
+var game_over_menu: Control 
 var demo_level: Node2D
 
 
@@ -15,6 +16,18 @@ func _main_menu() -> void:
     add_child(main_menu)
     
     
+func _game_over_menu() -> void:
+    game_over_menu = load("res://menus/game_over_menu.tscn").instance()
+    game_over_menu.connect("play", self, "_on_play")
+    game_over_menu.connect("back_to_main", self, "_on_back_to_main")
+    add_child(game_over_menu)
+    
+    
+func _on_back_to_main() -> void:
+    _remove_active_scene()
+    _main_menu()
+    
+    
 func _on_play() -> void:
     _remove_active_scene()
     demo_level = load("res://levels/demo_level.tscn").instance()
@@ -24,7 +37,7 @@ func _on_play() -> void:
 
 func _on_game_over() -> void:
     _remove_active_scene()
-    _main_menu()
+    _game_over_menu()
     
     
 func _remove_active_scene() -> void:
